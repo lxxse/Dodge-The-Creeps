@@ -1,0 +1,16 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# UID файлы (автогенерируются Godot)
+*.gd.uid
+*.tscn.uid
+
+# Импортированные ресурсы
+*.import
+
+# Экспортные настройки (может содержать пароли)
+export_presets.cfg
+
+# Папка .godot (если видишь её в списке)
+.godot/
