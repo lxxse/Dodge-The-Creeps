@@ -3,10 +3,17 @@ signal hit
 
 @export var speed = 400 # Скорость пиксель/сек
 var screen_size # Размер окна игры
+var touch_position = null
+var is_touching = false
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	hide()
+
+func _input(event):
+	if event is InputEventScreenTouch:
+		is_touching = event.pressed
+		touch_position = event.position if event.pressed else null
 
 func _process(delta: float) -> void:
 	var velocity = Vector2.ZERO
@@ -18,6 +25,10 @@ func _process(delta: float) -> void:
 		velocity.y += 1
 	if Input.is_action_pressed("move_up"):
 		velocity.y -= 1
+		
+	if is_touching && touch_position != null:
+		var direction = (touch_position - position).normalized()
+		velocity = direction * speed
 	
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
